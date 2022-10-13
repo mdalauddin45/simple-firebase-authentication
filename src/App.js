@@ -1,19 +1,24 @@
-// import logo from "./logo.svg";
-import "./App.css";
-import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import React from "react";
 import app from "./firebase/firebase.init";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 const auth = getAuth(app);
-
 function App() {
   const provider = new GoogleAuthProvider();
 
-  const handleGoogleSingIn = () => {
-    console.log("hi");
+  const handleGooleSingIn = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
   return (
-    <div className="App">
-      <button onClick={handleGoogleSingIn}>Google</button>
+    <div>
+      <button onClick={handleGooleSingIn}>Google</button>
     </div>
   );
 }
